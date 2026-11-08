@@ -246,6 +246,21 @@ body::before{background:rgba(6,10,22,.55)!important}
 .g-del{background:none;border:0;color:var(--muted);font:600 .9rem Barlow,Arial,sans-serif;cursor:pointer;min-height:44px;min-width:44px}
 .g-note{text-align:center;color:var(--muted);font-size:.9rem}
 #g-chart svg{width:100%;height:auto;display:block}
+
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{min-height:44px;padding:0 16px;border-radius:999px;background:rgba(255,255,255,.08);border:1px solid var(--glass-edge);color:var(--text);font:600 .98rem Barlow,Arial,sans-serif;cursor:pointer}
+.chip.on{background:linear-gradient(160deg,#3358D0,#1C3FA8);border-color:rgba(233,207,122,.7)}
+.rate .chip{min-width:48px;padding:0;font-family:"Bodoni Moda",Didot,Georgia,serif;font-size:1.15rem}
+.form textarea{width:100%;font:500 1rem/1.4 Barlow,Arial,sans-serif;color:var(--text);background:rgba(255,255,255,.08);border:1px solid var(--glass-edge);border-radius:12px;padding:12px;resize:vertical;outline:none}
+.form textarea:focus{border-color:var(--gold-ink)}
+.form textarea::placeholder,.form input::placeholder{color:rgba(232,238,255,.35)}
+.j-entry{padding:14px 0;border-top:1px solid var(--line)}
+.j-head{display:flex;align-items:center;gap:10px}
+.j-head b{flex:1}
+.j-tag{font-size:.8rem;font-weight:600;padding:3px 10px;border-radius:999px;border:1px solid rgba(233,207,122,.5);color:var(--gold-ink)}
+.j-score{font-family:"Bodoni Moda",Didot,Georgia,serif;font-weight:700;color:var(--gold-ink)}
+.j-entry p{margin:6px 0 0;color:var(--muted)}
+.j-entry p strong{color:var(--text);font-weight:600}
 </style>
 </head>
 <body>
@@ -307,7 +322,7 @@ body::before{background:rgba(6,10,22,.55)!important}
         <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="8" width="30" height="27" rx="3"/><path d="M5 15h30M13 4v8M27 4v8"/><path d="M14 25l4 4 8-9"/></svg>
         <div><b>Tryout day</b><small>Sunday, Nov 8. U14 and older boys, 2:00 PM</small></div>
       </button>
-      <button class="tile" data-go="rules"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="20" cy="20" r="14"/><circle cx="15" cy="17" r="1.2" fill="currentColor"/><circle cx="25" cy="17" r="1.2" fill="currentColor"/><path d="M14 24c3 3 9 3 12 0"/></svg><div><b>Game face</b><small>8 rules coaches notice</small></div></button><button class="tile" data-go="legends"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 7h16v7c0 5-4 9-8 9s-8-4-8-9z"/><path d="M12 10H7c0 4 2 7 5 7M28 10h5c0 4-2 7-5 7M20 23v6M14 34h12M16 29h8"/></svg><div><b>A word from the legends</b><small>Mbappé, Messi, Saka and more</small></div></button><button class="tile" data-go="warmup"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 34c-6 0-10-4-10-10 0-7 6-10 6-17 4 3 5 7 5 9 2-1 3-3 3-5 4 3 6 8 6 13 0 6-4 10-10 10z"/></svg><div><b>Sideline warm up</b><small>10 minutes before 2:00</small></div></button><button class="tile" data-go="session"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="20" cy="20" r="15"/><path d="M20 11l7 5-3 8h-8l-3-8z"/></svg><div><b>Tonight’s session</b><small>20 minutes, light touches</small></div></button><button class="tile" data-go="solo"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="14" cy="9" r="3.5"/><path d="M14 13v10l-5 10M14 23l6 4v7M14 16l7 3"/><circle cx="29" cy="31" r="4"/></svg><div><b>Attacker drills</b><small>Solo work for forwards</small></div></button><button class="tile" data-go="fixes"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="20" cy="20" r="14"/><path d="M8 26h24"/><circle cx="20" cy="17" r="4"/><path d="M20 21v5"/></svg><div><b>Fix it fast</b><small>Stop skying shots and more</small></div></button><button class="tile" data-go="mental"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6c-7 0-12 5-12 11 0 4 2 6 4 8v8h10v-4h4c2 0 3-1 3-3v-4l3-1-3-5c0-6-3-10-9-10z"/><path d="M17 15c2-2 6-1 6 2s-3 3-3 5"/></svg><div><b>Mental game</b><small>Reset fast, play free</small></div></button><button class="tile" data-go="focus"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="20" cy="20" r="14"/><circle cx="20" cy="20" r="8"/><circle cx="20" cy="20" r="2" fill="currentColor"/></svg><div><b>Focus</b><small>Your highlight reel and more</small></div></button><button class="tile" data-go="approach"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 32l8-10 6 5 10-15"/><path d="M26 12h6v6"/></svg><div><b>Tryout approach</b><small>What coaches watch</small></div></button><button class="tile" data-go="workouts"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 16v8M10 12v16M30 12v16M34 16v8M10 20h20"/></svg><div><b>Workouts</b><small>Lifting, speed, injury proofing</small></div></button><button class="tile" data-go="fuel"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12c-3-5-11-4-11 4 0 9 6 17 11 17s11-8 11-17c0-8-8-9-11-4z"/><path d="M20 12c0-3 2-6 5-7"/></svg><div><b>Fuel</b><small>What to eat and when</small></div></button><button class="tile" data-go="growth"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 34V6M12 6l-3 3M12 6l3 3"/><path d="M20 34h12M20 28h8M20 22h12M20 16h8M20 10h12"/></svg><div><b>Growth tracker</b><small>Height and weight</small></div></button><button class="tile" data-go="checklist"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="5" width="24" height="31" rx="3"/><path d="M14 14l2 2 4-4M14 23l2 2 4-4M23 14h4M23 23h4"/></svg><div><b>Tonight’s checklist</b><small>Pack, relax, have fun</small></div></button>
+      <button class="tile" data-go="rules"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="20" cy="20" r="14"/><circle cx="15" cy="17" r="1.2" fill="currentColor"/><circle cx="25" cy="17" r="1.2" fill="currentColor"/><path d="M14 24c3 3 9 3 12 0"/></svg><div><b>Game face</b><small>8 rules coaches notice</small></div></button><button class="tile" data-go="legends"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 7h16v7c0 5-4 9-8 9s-8-4-8-9z"/><path d="M12 10H7c0 4 2 7 5 7M28 10h5c0 4-2 7-5 7M20 23v6M14 34h12M16 29h8"/></svg><div><b>A word from the legends</b><small>Mbappé, Messi, Saka and more</small></div></button><button class="tile" data-go="warmup"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 34c-6 0-10-4-10-10 0-7 6-10 6-17 4 3 5 7 5 9 2-1 3-3 3-5 4 3 6 8 6 13 0 6-4 10-10 10z"/></svg><div><b>Sideline warm up</b><small>10 minutes before 2:00</small></div></button><button class="tile" data-go="session"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="20" cy="20" r="15"/><path d="M20 11l7 5-3 8h-8l-3-8z"/></svg><div><b>Tonight’s session</b><small>20 minutes, light touches</small></div></button><button class="tile" data-go="solo"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="14" cy="9" r="3.5"/><path d="M14 13v10l-5 10M14 23l6 4v7M14 16l7 3"/><circle cx="29" cy="31" r="4"/></svg><div><b>Attacker drills</b><small>Solo work for forwards</small></div></button><button class="tile" data-go="fixes"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="20" cy="20" r="14"/><path d="M8 26h24"/><circle cx="20" cy="17" r="4"/><path d="M20 21v5"/></svg><div><b>Fix it fast</b><small>Stop skying shots and more</small></div></button><button class="tile" data-go="mental"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6c-7 0-12 5-12 11 0 4 2 6 4 8v8h10v-4h4c2 0 3-1 3-3v-4l3-1-3-5c0-6-3-10-9-10z"/><path d="M17 15c2-2 6-1 6 2s-3 3-3 5"/></svg><div><b>Mental game</b><small>Reset fast, play free</small></div></button><button class="tile" data-go="focus"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="20" cy="20" r="14"/><circle cx="20" cy="20" r="8"/><circle cx="20" cy="20" r="2" fill="currentColor"/></svg><div><b>Focus</b><small>Your highlight reel and more</small></div></button><button class="tile" data-go="approach"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 32l8-10 6 5 10-15"/><path d="M26 12h6v6"/></svg><div><b>Tryout approach</b><small>What coaches watch</small></div></button><button class="tile" data-go="workouts"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 16v8M10 12v16M30 12v16M34 16v8M10 20h20"/></svg><div><b>Workouts</b><small>Lifting, speed, injury proofing</small></div></button><button class="tile" data-go="fuel"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12c-3-5-11-4-11 4 0 9 6 17 11 17s11-8 11-17c0-8-8-9-11-4z"/><path d="M20 12c0-3 2-6 5-7"/></svg><div><b>Fuel</b><small>What to eat and when</small></div></button><button class="tile" data-go="journal"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10 6h18a3 3 0 0 1 3 3v25H13a3 3 0 0 1-3-3z"/><path d="M10 31a3 3 0 0 1 3-3h18M16 12h9M16 17h6"/></svg><div><b>Journal</b><small>60 seconds after every session</small></div></button><button class="tile" data-go="growth"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 34V6M12 6l-3 3M12 6l3 3"/><path d="M20 34h12M20 28h8M20 22h12M20 16h8M20 10h12"/></svg><div><b>Growth tracker</b><small>Height and weight</small></div></button><button class="tile" data-go="checklist"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="5" width="24" height="31" rx="3"/><path d="M14 14l2 2 4-4M14 23l2 2 4-4M23 14h4M23 23h4"/></svg><div><b>Tonight’s checklist</b><small>Pack, relax, have fun</small></div></button>
     </div>
   </main>
 </section>
@@ -395,6 +410,28 @@ body::before{background:rgba(6,10,22,.55)!important}
 <div class="card" id="g-chart-card" hidden><h2>Height over time</h2><div id="g-chart"></div></div>
 <div class="card"><h2>History</h2><div id="g-list"><p>No check ins yet.</p></div></div>
 <p class="g-note">Saved only on this phone and browser.</p></main></section>
+<section class="view" id="v-journal"><div class="bar-top"><button class="back" data-go="">‹ Hub</button><h1>Journal</h1><p>60 seconds after every session.</p></div><main>
+<p class="lede">Pros keep notes. Write it down while it’s fresh, then let it go.</p>
+<div class="card"><h2>New entry</h2>
+  <div class="form">
+    <label class="fld"><span>Date</span><input type="date" id="j-date"></label>
+    <div class="fld"><span>What was it?</span><div class="chips" id="j-type" role="radiogroup" aria-label="Session type">
+      <button type="button" class="chip on" data-v="Training" role="radio" aria-checked="true">Training</button>
+      <button type="button" class="chip" data-v="Game" role="radio" aria-checked="false">Game</button>
+      <button type="button" class="chip" data-v="Tryout" role="radio" aria-checked="false">Tryout</button>
+      <button type="button" class="chip" data-v="Solo" role="radio" aria-checked="false">Solo</button></div></div>
+    <div class="fld"><span>How did you play?</span><div class="chips rate" id="j-rate" role="radiogroup" aria-label="Rating">
+      <button type="button" class="chip" data-v="1" role="radio" aria-checked="false">1</button><button type="button" class="chip" data-v="2" role="radio" aria-checked="false">2</button><button type="button" class="chip on" data-v="3" role="radio" aria-checked="true">3</button><button type="button" class="chip" data-v="4" role="radio" aria-checked="false">4</button><button type="button" class="chip" data-v="5" role="radio" aria-checked="false">5</button></div></div>
+    <label class="fld"><span>One thing I did well</span><textarea id="j-good" rows="2" placeholder="Won a lot of balls back"></textarea></label>
+    <label class="fld"><span>One thing to work on</span><textarea id="j-work" rows="2" placeholder="First touch with my left"></textarea></label>
+    <label class="fld"><span>Anything else</span><textarea id="j-note" rows="2" placeholder="Coach said nice run in behind"></textarea></label>
+  </div>
+  <p class="g-msg" id="j-msg" role="status"></p>
+  <button class="btn solid" id="j-save">Save entry</button>
+</div>
+<div class="card"><h2>Past entries</h2><div id="j-list"><p>Nothing yet. Your first entry goes here.</p></div></div>
+<p class="g-note">Private. Saved only on this phone and browser.</p>
+</main></section>
 <section class="view" id="v-mental"><div class="bar-top"><button class="back" data-go="">‹ Hub</button><h1>Mental game</h1><p>Stay in the next action.</p></div><main><p class="lede">The best players aren’t the ones who never make mistakes. They’re the ones whose next action is always good.</p><div class="card"><h2>Your routine before kickoff</h2><p>Same every time: warm up, picture your first touch, say your focus word, first touch of the ball. A routine tells your body it has done this before.</p><span class="cue">Cue: “Routine, then play.”</span></div><div class="card"><h2>Control what is yours</h2><p>Effort, voice, body language, and how fast you react. Nothing else needs your attention.</p><span class="cue">Cue: “My effort, my voice.”</span></div><div class="card"><h2>Next action</h2><p>A mistake is finished the moment it happens. The only thing coaches remember is what you do in the next five seconds.</p><span class="cue">Cue: “Next action.”</span></div><div class="card"><h2>The three second reset</h2><p>One breath out, tap your shin guard, say your word, find the ball. Practice it tonight after a missed touch so it’s automatic tomorrow.</p></div><div class="card"><h2>Body language speaks first</h2><p>Chest up, eyes forward, jog to every line. Coaches read posture before they read skill. See Game face for the eight rules.</p></div><div class="card"><h2>Pressure is a privilege</h2><p>The feeling in your stomach means this matters. Breathe into it and use it as energy.</p></div></main></section>
 <section class="view" id="v-focus"><div class="bar-top"><button class="back" data-go="">‹ Hub</button><h1>Focus</h1><p>Calm body, clear eyes, loud voice.</p></div><main><p class="lede">The best players have already played the game in their heads before they step on the pitch.</p><div class="card film"><h2>Your highlight reel</h2><p>Every pro does this. Close your eyes and watch yourself play tomorrow before it happens. Tap through the clips tonight in bed and again in the car.</p>
 <div class="scene" id="scene">You’re walking onto Field 1. Hear the ball, feel your cleats grip the turf.</div>
@@ -464,7 +501,37 @@ body::before{background:rgba(6,10,22,.55)!important}
     setTimeout(()=>{$("g-msg").textContent=""},2500)};
   render();
 })();
-const views=["tryout","workouts","fuel","growth","legends","rules","warmup","session","solo","fixes","mental","focus","approach","checklist"];
+
+(function(){
+  const K="journal";let J=[];try{J=JSON.parse(localStorage.getItem(K)||"[]")}catch(e){J=[]}
+  const save=()=>{try{localStorage.setItem(K,JSON.stringify(J))}catch(e){}};
+  const $=id=>document.getElementById(id);
+  const today=()=>{const d=new Date();return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0")};
+  $("j-date").value=today();
+  const esc=t=>String(t).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+  ["j-type","j-rate"].forEach(id=>$(id).addEventListener("click",e=>{const b=e.target.closest(".chip");if(!b)return;
+    $(id).querySelectorAll(".chip").forEach(c=>{c.classList.toggle("on",c===b);c.setAttribute("aria-checked",c===b)})}));
+  const pick=id=>$(id).querySelector(".chip.on")?.dataset.v;
+  const fmtD=d=>new Date(d+"T12:00:00").toLocaleDateString(undefined,{weekday:"short",month:"short",day:"numeric"});
+  function render(){
+    const L=$("j-list");
+    if(!J.length){L.innerHTML="<p>Nothing yet. Your first entry goes here.</p>";return}
+    L.innerHTML="";
+    [...J].sort((a,b)=>b.date.localeCompare(a.date)||b.t-a.t).forEach(e=>{
+      const d=document.createElement("div");d.className="j-entry";
+      d.innerHTML=`<div class="j-head"><b>${fmtD(e.date)}</b><span class="j-tag">${esc(e.type)}</span><span class="j-score">${e.rate}/5</span><button class="g-del" aria-label="Delete entry">✕</button></div>`+
+        (e.good?`<p><strong>Did well:</strong> ${esc(e.good)}</p>`:"")+(e.work?`<p><strong>Work on:</strong> ${esc(e.work)}</p>`:"")+(e.note?`<p>${esc(e.note)}</p>`:"");
+      d.querySelector(".g-del").onclick=()=>{if(confirm("Delete this entry?")){J=J.filter(x=>x!==e);save();render()}};
+      L.appendChild(d)});
+  }
+  $("j-save").onclick=()=>{
+    const e={date:$("j-date").value||today(),type:pick("j-type")||"Training",rate:pick("j-rate")||"3",good:$("j-good").value.trim(),work:$("j-work").value.trim(),note:$("j-note").value.trim(),t:Date.now()};
+    if(!e.good&&!e.work&&!e.note){$("j-msg").textContent="Write at least one line.";return}
+    J.push(e);save();render();["j-good","j-work","j-note"].forEach(id=>$(id).value="");
+    $("j-msg").textContent="Saved. Now let it go.";setTimeout(()=>{$("j-msg").textContent=""},2500)};
+  render();
+})();
+const views=["tryout","journal","workouts","fuel","growth","legends","rules","warmup","session","solo","fixes","mental","focus","approach","checklist"];
 function route(){const h=location.hash.slice(1);const v=views.includes(h)?h:"home";
   document.querySelectorAll(".view").forEach(e=>e.classList.toggle("on",e.id==="v-"+v));window.scrollTo(0,0)}
 document.addEventListener("click",e=>{const b=e.target.closest("[data-go]");if(!b)return;
