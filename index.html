@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>PMT Training Hub</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,500;0,6..96,700;1,6..96,500&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --royal:#1C3FA8;--royal-deep:#0F2470;--white:#FFFFFF;--gold:#C9A227;--gold-light:#E9CF7A;--gold-ink:#A8841C;
+  --sheen:repeating-linear-gradient(90deg,rgba(255,255,255,.035) 0 1px,transparent 1px 14px),radial-gradient(circle at 50% 25%,rgba(255,255,255,.2),transparent 58%),linear-gradient(160deg,#1C3FA8 0%,#0F2470 100%);
+  --bg:#FFFFFF;--surface:#F3F5FA;--text:#14204A;--muted:#5A6688;--line:#D9DFEE;--accent:#1C3FA8;
+  box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){color-scheme:dark;--bg:#0A1640;--surface:#12215A;--text:#F3F5FA;--muted:#A9B4D6;--line:#26377A;--accent:#FFFFFF;--gold-ink:#E3C66B}}
+:root[data-theme="dark"]{color-scheme:dark;--bg:#0A1640;--surface:#12215A;--text:#F3F5FA;--muted:#A9B4D6;--line:#26377A;--accent:#FFFFFF;--gold-ink:#E3C66B}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--text);font-family:Barlow,"Helvetica Neue",Arial,sans-serif;font-size:17px;line-height:1.5;-webkit-font-smoothing:antialiased}
+.serif{font-family:"Bodoni Moda",Didot,Georgia,serif}
+.view{display:none}.view.on{display:block}
+
+.hero{background:var(--sheen);color:#fff;padding:32px 24px 46px;text-align:center;position:relative;overflow:hidden}
+.hero::after{content:"";position:absolute;inset:auto -10% -1px;height:28px;background:var(--bg);border-radius:50% 50% 0 0/100% 100% 0 0}
+.crest{width:136px;height:136px;filter:drop-shadow(0 10px 24px rgba(5,15,60,.45)) drop-shadow(0 0 18px rgba(233,207,122,.25));margin:0 auto 14px;display:block}
+.hero h1{font-family:"Bodoni Moda",Didot,Georgia,serif;font-weight:700;font-size:clamp(2.4rem,11vw,3.4rem);line-height:1;margin:0}
+.hero p{font-family:"Bodoni Moda",Didot,Georgia,serif;font-style:italic;font-size:1.1rem;margin:10px 0 0;opacity:.9}
+.stripes{display:flex;justify-content:center;gap:6px;margin:20px auto 0}
+.stripes span{width:28px;height:3px;background:#fff;opacity:.85}
+.stripes span:nth-child(2){background:linear-gradient(90deg,#B8901F,#F6E3A1,#B8901F);opacity:1}
+.hero p{color:var(--gold-light)}
+.bar-top{background:var(--sheen)!important;border-bottom:2px solid var(--gold)}
+.bar-top p{color:var(--gold-light);opacity:1!important}
+
+.bar-top{background:linear-gradient(160deg,var(--royal) 0%,var(--royal-deep) 100%);color:#fff;padding:18px 20px 22px}
+.back{background:none;border:0;color:#fff;font:600 1rem Barlow,Arial,sans-serif;padding:8px 0;min-height:44px;cursor:pointer}
+.bar-top h1{font-family:"Bodoni Moda",Didot,Georgia,serif;font-size:2rem;margin:4px 0 0;line-height:1.1}
+.bar-top p{margin:4px 0 0;opacity:.85}
+
+main{max-width:560px;margin:0 auto;padding:14px 20px 44px}
+
+.countdown{text-align:center;margin:4px 0 26px}
+.countdown .big{font-family:"Bodoni Moda",Didot,Georgia,serif;font-size:2.4rem;font-weight:500;font-variant-numeric:tabular-nums;color:var(--gold-ink);line-height:1.1}
+.countdown .small{color:var(--muted);font-size:.95rem}
+
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.tile{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:20px 16px;text-align:left;color:var(--text);font:inherit;cursor:pointer;min-height:150px;display:flex;flex-direction:column;justify-content:space-between;box-shadow:0 1px 2px rgba(15,36,112,.06),0 10px 26px rgba(15,36,112,.09)}
+.tile svg{color:var(--gold-ink)}
+.tile.feature{grid-column:1/-1;background:var(--sheen);color:#fff;border:0;box-shadow:inset 0 0 0 1px rgba(233,207,122,.55),0 12px 30px rgba(15,36,112,.25)}
+.tile.feature svg{color:var(--gold-light)}
+.tile svg{width:38px;height:38px}
+.tile b{font-family:"Bodoni Moda",Didot,Georgia,serif;font-size:1.3rem;display:block;margin-top:14px;line-height:1.15}
+.tile small{color:var(--muted);font-size:.9rem}
+.tile.feature small{color:rgba(255,255,255,.8)}
+.tile:focus-visible,button:focus-visible,a:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+
+.info{border-top:1px solid var(--line)}
+.row{display:grid;grid-template-columns:110px 1fr;gap:12px;padding:16px 0;border-bottom:1px solid var(--line)}
+.row .k{color:var(--muted);font-size:.95rem}
+.row .v{font-weight:600}
+.cta{display:flex;gap:10px;margin:22px 0 0;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;justify-content:center;font:600 1rem Barlow,Arial,sans-serif;padding:12px 22px;border-radius:999px;min-height:46px;text-decoration:none;cursor:pointer}
+.btn.solid{background:var(--royal);color:#fff;border:2px solid var(--royal)}
+.btn.ghost{background:transparent;color:var(--text);border:2px solid var(--line)}
+
+.progress{display:flex;align-items:center;gap:14px;margin:6px 0 24px}
+.track{flex:1;height:6px;background:var(--line);border-radius:3px;overflow:hidden}
+.fill{height:100%;width:0;background:linear-gradient(90deg,#B8901F,#E9CF7A);transition:width .5s ease}
+.count{font-weight:600;font-size:.95rem;color:var(--muted);white-space:nowrap}
+.drill{display:grid;grid-template-columns:52px 1fr;gap:4px 16px;padding:22px 0;border-top:1px solid var(--line);transition:opacity .4s}
+.drill:last-of-type{border-bottom:1px solid var(--line)}
+.drill.done{opacity:.4}
+.num{font-family:"Bodoni Moda",Didot,Georgia,serif;font-size:2.6rem;line-height:1;color:var(--gold-ink);font-weight:500}
+.drill h2{font-family:"Bodoni Moda",Didot,Georgia,serif;font-weight:700;font-size:1.4rem;margin:2px 0 4px;line-height:1.15}
+.drill p{margin:0 0 14px;color:var(--muted)}
+.controls{grid-column:2;display:flex;align-items:center;gap:10px}
+.controls button{font:600 1rem Barlow,Arial,sans-serif;padding:11px 20px;border-radius:999px;cursor:pointer;min-height:44px}
+.go{background:var(--royal);color:#fff;border:2px solid var(--royal)}
+.check{background:transparent;color:var(--text);border:2px solid var(--line)}
+.time{margin-left:auto;font-family:"Bodoni Moda",Didot,Georgia,serif;font-size:1.9rem;font-variant-numeric:tabular-nums;font-weight:500}
+.drill.running .time{color:var(--accent)}
+.final{display:none;text-align:center;margin-top:28px;font-family:"Bodoni Moda",Didot,Georgia,serif;font-size:1.4rem;font-style:italic}
+.final.show{display:block}
+
+.note{margin-top:28px;padding:22px;background:var(--surface);border-left:4px solid var(--gold);border-radius:4px}
+.note h3{font-family:"Bodoni Moda",Didot,Georgia,serif;font-style:italic;font-weight:500;font-size:1.2rem;margin:0 0 6px}
+.note p{margin:0;color:var(--muted)}
+
+.list{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+.list label{display:flex;align-items:center;gap:14px;padding:15px 0;border-bottom:1px solid var(--line);cursor:pointer;min-height:52px}
+.list input{width:24px;height:24px;accent-color:var(--royal);flex:none}
+.list input:checked+span{color:var(--muted);text-decoration:line-through}
+@media (prefers-reduced-motion: reduce){*{transition:none!important}}
+
+.grid .tile b{font-size:1.2rem}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:20px;margin-bottom:14px}
+.card h2{font-family:"Bodoni Moda",Didot,Georgia,serif;font-size:1.3rem;margin:0 0 6px;line-height:1.2}
+.card p{margin:0;color:var(--muted)}
+.card p+p{margin-top:8px}
+.card .cue{display:inline-block;margin-top:10px;font-weight:600;color:var(--text)}
+.lede{font-family:"Bodoni Moda",Didot,Georgia,serif;font-style:italic;font-size:1.2rem;margin:4px 0 20px;line-height:1.4}
+.breathe{display:flex;flex-direction:column;align-items:center;padding:16px 0 8px}
+.scene{font-family:"Bodoni Moda",Didot,Georgia,serif;font-size:1.3rem;line-height:1.4;min-height:5.6rem;margin:16px 0;padding:18px;border-radius:12px;background:var(--sheen);color:#fff;box-shadow:inset 0 0 0 1px rgba(233,207,122,.5)}
+.film-row{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.film-row .sub{margin:0}
+details.fix{background:var(--surface);border:1px solid var(--line);border-radius:16px;margin-bottom:12px;box-shadow:0 1px 2px rgba(15,36,112,.05),0 6px 18px rgba(15,36,112,.06)}
+details.fix summary{list-style:none;cursor:pointer;padding:18px 20px;font-family:"Bodoni Moda",Didot,Georgia,serif;font-size:1.2rem;font-weight:700;display:flex;justify-content:space-between;align-items:center;gap:12px;min-height:44px}
+details.fix summary::-webkit-details-marker{display:none}
+details.fix summary::after{content:"+";font-family:Barlow,Arial,sans-serif;font-weight:500;font-size:1.6rem;color:var(--gold-ink);transition:transform .25s}
+details.fix[open] summary::after{transform:rotate(45deg)}
+details.fix summary:focus-visible{outline:3px solid var(--accent);outline-offset:-3px;border-radius:16px}
+.fix-body{padding:0 20px 20px}
+.fix-body .label{display:block;font-weight:600;font-size:.9rem;color:var(--gold-ink);margin-top:12px}
+.fix-body p{margin:2px 0 0;color:var(--muted)}
+.tonight{background:var(--sheen);color:#fff;border-radius:20px;padding:20px;margin:0 0 26px;box-shadow:inset 0 0 0 1px rgba(233,207,122,.55),0 12px 30px rgba(15,36,112,.25)}
+.tonight h2{font-family:"Bodoni Moda",Didot,Georgia,serif;font-size:1.35rem;margin:0 0 10px}
+.step{display:flex;align-items:center;gap:14px;width:100%;background:transparent;border:0;border-top:1px solid rgba(255,255,255,.18);color:#fff;font:inherit;text-align:left;padding:13px 0;cursor:pointer;min-height:52px}
+.step .n{flex:none;width:34px;height:34px;border-radius:50%;border:1.5px solid var(--gold-light);color:var(--gold-light);display:grid;place-items:center;font-family:"Bodoni Moda",Didot,Georgia,serif;font-weight:700}
+.step b{display:block;font-size:1.05rem}
+.step small{color:rgba(255,255,255,.75)}
+.step:focus-visible{outline:3px solid var(--gold-light);outline-offset:2px;border-radius:8px}
+.section-h{font-family:"Bodoni Moda",Didot,Georgia,serif;font-size:1.2rem;font-weight:500;font-style:italic;color:var(--muted);margin:0 0 12px}
+.tile svg *{stroke-width:1.8}
+.rules{border-top:1px solid var(--line)}
+.rule{display:grid;grid-template-columns:44px 1fr;gap:4px 14px;padding:18px 0;border-bottom:1px solid var(--line)}
+.rn{font-family:"Bodoni Moda",Didot,Georgia,serif;font-size:1.9rem;line-height:1;color:var(--gold-ink);font-weight:500}
+.rule h2{font-family:"Bodoni Moda",Didot,Georgia,serif;font-size:1.45rem;margin:0 0 4px;line-height:1.15}
+.rule p{margin:0;color:var(--muted)}
+.legend .who{display:block;font-weight:600;color:var(--gold-ink);font-size:.95rem;margin-bottom:6px}
+.legend blockquote{margin:0 0 10px;font-family:"Bodoni Moda",Didot,Georgia,serif;font-style:italic;font-size:1.45rem;line-height:1.3;color:var(--text)}
+.legend .cue{font-family:"Bodoni Moda",Didot,Georgia,serif;font-size:1.1rem}
+.splash{position:fixed;inset:0;z-index:50;background:var(--sheen);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;padding-top:calc(24px + env(safe-area-inset-top,0px));padding-bottom:calc(24px + env(safe-area-inset-bottom,0px));transition:opacity .5s ease,visibility .5s}
+.splash.gone{opacity:0;visibility:hidden}
+.sp-crest svg{width:170px;height:170px;display:block;filter:drop-shadow(0 12px 30px rgba(5,15,60,.5)) drop-shadow(0 0 26px rgba(233,207,122,.35))}
+.sp-crest{animation:crestIn 1.1s cubic-bezier(.2,.8,.2,1) both,crestUp .7s cubic-bezier(.6,0,.2,1) 1.7s both}
+.sp-line{width:0;height:2px;background:linear-gradient(90deg,transparent,#F6E3A1,#C9A227,#F6E3A1,transparent);margin:6px 0 0;animation:lineIn .8s ease 1s both}
+.sp-card{width:100%;max-width:420px;background:var(--bg);color:var(--text);border-radius:22px;padding:26px 24px 22px;margin-top:22px;box-shadow:0 0 0 1px rgba(233,207,122,.6),0 24px 60px rgba(5,15,60,.45);opacity:0;transform:translateY(40px);animation:cardIn .7s cubic-bezier(.2,.8,.2,1) 2s both;border-top:3px solid #C9A227}
+.sp-label{display:block;font-weight:600;font-size:.95rem;color:var(--gold-ink);margin-bottom:10px}
+.sp-quote{margin:0;font-family:"Bodoni Moda",Didot,Georgia,serif;font-style:italic;font-size:1.5rem;line-height:1.3}
+.sp-who{display:block;margin-top:12px;font-weight:600}
+.sp-tag{margin:14px 0 18px;color:var(--muted);font-family:"Bodoni Moda",Didot,Georgia,serif;font-style:italic}
+.sp-actions{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.sp-more{background:none;border:0;color:var(--text);font:600 .95rem Barlow,Arial,sans-serif;text-decoration:underline;text-underline-offset:3px;cursor:pointer;min-height:44px}
+@keyframes crestIn{0%{opacity:0;transform:scale(.6)}60%{opacity:1;transform:scale(1.06)}100%{opacity:1;transform:scale(1)}}
+@keyframes crestUp{to{transform:scale(.62) translateY(10px)}}
+@keyframes lineIn{to{width:170px}}
+@keyframes cardIn{to{opacity:1;transform:none}}
+@media (prefers-reduced-motion: reduce){.sp-crest,.sp-line,.sp-card{animation:none!important;opacity:1;transform:none}.sp-line{width:170px}}
+.orb{width:120px;height:120px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#4A6DD8,var(--royal) 60%,var(--royal-deep));transform:scale(.6);transition:transform 4s ease-in-out;margin:12px 0 18px}
+.phase{font-family:"Bodoni Moda",Didot,Georgia,serif;font-size:1.4rem;min-height:2rem}
+.sub{color:var(--muted);font-size:.95rem;margin:2px 0 14px}
+@media (prefers-reduced-motion: reduce){.orb{transition:none}}
+
+/* ===== Night pitch glass theme ===== */
+:root:root:root{color-scheme:dark;--bg:#04060c;--surface:rgba(255,255,255,.07);--text:#F4F6FB;--muted:rgba(232,238,255,.68);--line:rgba(255,255,255,.12);--accent:#FFFFFF;--gold-ink:#E6C76E;
+  --glass:rgba(255,255,255,.075);--glass-hi:rgba(255,255,255,.14);--glass-edge:rgba(255,255,255,.2);
+  --sheen:linear-gradient(160deg,rgba(255,255,255,.12),rgba(255,255,255,.04))}
+html{background:#04060c}
+body{background:transparent;color:var(--text)}
+.pitches{position:fixed;inset:0;z-index:-1;overflow:hidden;perspective:1400px;
+  background:radial-gradient(ellipse 80% 50% at 50% 105%,rgba(214,200,140,.22),transparent 60%),radial-gradient(ellipse 90% 60% at 50% -5%,rgba(48,70,150,.45),transparent 60%),#04060c}
+.pane{position:absolute;left:50%;width:min(96vw,560px);aspect-ratio:105/68;transform-style:preserve-3d;
+  transform:translate(-50%,-50%) rotateX(58deg) rotateZ(-45deg);
+  background:radial-gradient(ellipse 60% 70% at 35% 40%,rgba(255,250,220,.28),transparent 60%),
+    repeating-linear-gradient(90deg,#2f5d2b 0 7.15%,#25502a 7.15% 14.3%),#244b25;
+  box-shadow:0 0 0 1.5px rgba(255,255,255,.7),0 0 30px rgba(210,235,255,.35),inset 0 0 120px rgba(0,0,0,.65),0 60px 120px rgba(0,0,0,.7);
+  animation:drift 14s ease-in-out infinite alternate}
+.pane svg{position:absolute;inset:0;width:100%;height:100%;opacity:.7}
+.p1{top:10%;filter:brightness(.7) saturate(.8) hue-rotate(18deg)}
+.p2{top:38%;filter:brightness(.9);animation-delay:-4s}
+.p3{top:66%;filter:brightness(.8) saturate(.9);animation-delay:-8s}
+.p4{top:94%;filter:brightness(.6) saturate(.7);animation-delay:-11s}
+.haze{position:absolute;inset:0;pointer-events:none;mix-blend-mode:screen;
+  background:radial-gradient(ellipse 40% 18% at 52% 38%,rgba(255,255,255,.35),transparent 70%),
+    radial-gradient(ellipse 60% 22% at 45% 66%,rgba(220,235,255,.16),transparent 70%),
+    linear-gradient(115deg,transparent 35%,rgba(255,255,255,.06) 48%,transparent 60%)}
+.pitches::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse 120% 90% at 50% 50%,rgba(2,3,8,.25) 30%,rgba(2,3,8,.85)),linear-gradient(180deg,rgba(2,3,8,.35),rgba(2,3,8,.15) 40%,rgba(2,3,8,.45));pointer-events:none}
+@keyframes drift{from{margin-top:-6px}to{margin-top:6px}}
+@media (prefers-reduced-motion: reduce){.pane{animation:none}}
+
+/* hero */
+.hero{background:transparent!important;padding-top:44px}
+.hero::after{display:none}
+.hero h1{text-shadow:0 4px 30px rgba(0,0,0,.6)}
+main{position:relative}
+
+/* glass primitives */
+.tile,.card,details.fix,.note,.info,.list,.tonight,.rules,.drill,.legend,.sp-card{-webkit-backdrop-filter:blur(18px) saturate(140%);backdrop-filter:blur(18px) saturate(140%)}
+.tile,.card,details.fix,.tonight,.sp-card{background:var(--glass)!important;border:1px solid var(--glass-edge)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.18),0 18px 40px rgba(0,0,0,.45)!important;color:var(--text)!important}
+.tile{border-radius:22px}
+.tile.feature{background:linear-gradient(160deg,rgba(255,255,255,.16),rgba(255,255,255,.06))!important;border-color:rgba(233,207,122,.45)!important}
+.tile svg{width:54px;height:54px;padding:12px;border-radius:15px;background:var(--glass-hi);border:1px solid var(--glass-edge);color:#fff!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.25)}
+.tile.feature svg{color:var(--gold-ink)!important}
+.tile small,.tile.feature small{color:var(--muted)!important}
+.grid{gap:12px}
+
+.tonight{border-color:rgba(233,207,122,.45)!important}
+.step{border-top-color:rgba(255,255,255,.1)!important}
+
+.note{background:var(--glass)!important;border:1px solid var(--glass-edge);border-left:3px solid var(--gold)!important;border-radius:16px!important}
+.info{background:var(--glass);border:1px solid var(--glass-edge)!important;border-radius:18px;padding:0 18px}
+.info .row:last-child{border-bottom:0}
+.list{background:var(--glass);border:1px solid var(--glass-edge)!important;border-radius:18px;padding:0 18px}
+.list li:last-child label{border-bottom:0}
+.rules{background:var(--glass);border:1px solid var(--glass-edge)!important;border-radius:18px;padding:0 18px}
+.rule:last-child{border-bottom:0}
+.drill{background:var(--glass);border:1px solid var(--glass-edge)!important;border-radius:18px;padding:18px!important;margin-bottom:12px;grid-template-columns:44px 1fr}
+.drill:last-of-type{border-bottom:1px solid var(--glass-edge)}
+
+.bar-top{position:sticky;top:0;z-index:5;background:rgba(6,10,22,.55)!important;-webkit-backdrop-filter:blur(20px) saturate(140%);backdrop-filter:blur(20px) saturate(140%);border-bottom:1px solid rgba(233,207,122,.35)!important}
+body::before{background:rgba(6,10,22,.55)!important}
+
+.btn.solid,.go{background:linear-gradient(160deg,#3358D0,#1C3FA8)!important;border-color:rgba(255,255,255,.25)!important;box-shadow:0 8px 24px rgba(28,63,168,.5),inset 0 1px 0 rgba(255,255,255,.3)}
+.btn.ghost,.check{background:var(--glass)!important;border-color:var(--glass-edge)!important;color:var(--text)!important}
+.time,.drill.running .time{color:#fff}
+.fill{background:linear-gradient(90deg,#B8901F,#F6E3A1)!important}
+.track{background:rgba(255,255,255,.12)!important}
+.scene{background:linear-gradient(160deg,rgba(51,88,208,.55),rgba(15,36,112,.55))!important}
+
+.splash{background:rgba(3,5,12,.35)!important;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+.sp-card{border-top:2px solid rgba(233,207,122,.8)!important}
+.countdown .big{color:#fff;text-shadow:0 6px 30px rgba(0,0,0,.8)}
+.countdown .small{color:rgba(240,244,255,.85)!important;text-shadow:0 2px 14px rgba(0,0,0,.9)}
+.hero p{text-shadow:0 2px 14px rgba(0,0,0,.9)}
+
+.exs{margin-top:10px}
+.ex{display:grid;grid-template-columns:1fr auto;gap:12px;padding:13px 0;border-top:1px solid var(--line);align-items:start}
+.ex b{display:block;font-size:1.02rem}
+.ex small{color:var(--muted);font-size:.92rem;line-height:1.4;display:block}
+.sets{font-family:"Bodoni Moda",Didot,Georgia,serif;font-weight:700;color:var(--gold-ink);white-space:nowrap;font-size:1.02rem;text-align:right}
+.form{display:grid;gap:14px;margin:12px 0 6px}
+.fld{display:grid;gap:6px}
+.fld>span{font-weight:600;font-size:.92rem;color:var(--muted)}
+.pair{display:flex;gap:10px}
+.pair label{flex:1;display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.08);border:1px solid var(--glass-edge);border-radius:12px;padding:0 12px}
+.pair em{font-style:normal;color:var(--muted)}
+.form input{width:100%;min-height:46px;font:500 1.05rem Barlow,Arial,sans-serif;color:var(--text);background:transparent;border:0;outline:none}
+.fld>input{background:rgba(255,255,255,.08);border:1px solid var(--glass-edge);border-radius:12px;padding:0 12px;color-scheme:dark}
+.pair label:focus-within,.fld>input:focus{border-color:var(--gold-ink)}
+.g-msg{min-height:1.4em;margin:4px 0 10px;color:var(--gold-ink);font-weight:600}
+.g-row{display:grid;grid-template-columns:1fr auto auto;gap:12px;align-items:center;padding:12px 0;border-top:1px solid var(--line)}
+.g-row b{display:block}
+.g-row small{color:var(--muted)}
+.g-del{background:none;border:0;color:var(--muted);font:600 .9rem Barlow,Arial,sans-serif;cursor:pointer;min-height:44px;min-width:44px}
+.g-note{text-align:center;color:var(--muted);font-size:.9rem}
+#g-chart svg{width:100%;height:auto;display:block}
+</style>
+</head>
+<body>
+<div class="pitches" aria-hidden="true">
+  <div class="pane p1"><svg viewBox="0 0 105 68" preserveAspectRatio="none" fill="none" stroke="#fff" stroke-width=".45"><rect x="2" y="2" width="101" height="64"/><line x1="52.5" y1="2" x2="52.5" y2="66"/><circle cx="52.5" cy="34" r="9.15"/><circle cx="52.5" cy="34" r=".6" fill="#fff"/><rect x="2" y="13.85" width="16.5" height="40.3"/><rect x="86.5" y="13.85" width="16.5" height="40.3"/><rect x="2" y="24.85" width="5.5" height="18.3"/><rect x="97.5" y="24.85" width="5.5" height="18.3"/><path d="M18.5 26.7a9.15 9.15 0 0 1 0 14.6M86.5 26.7a9.15 9.15 0 0 0 0 14.6"/><circle cx="13" cy="34" r=".5" fill="#fff"/><circle cx="92" cy="34" r=".5" fill="#fff"/></svg></div>
+  <div class="pane p2"><svg viewBox="0 0 105 68" preserveAspectRatio="none" fill="none" stroke="#fff" stroke-width=".45"><rect x="2" y="2" width="101" height="64"/><line x1="52.5" y1="2" x2="52.5" y2="66"/><circle cx="52.5" cy="34" r="9.15"/><circle cx="52.5" cy="34" r=".6" fill="#fff"/><rect x="2" y="13.85" width="16.5" height="40.3"/><rect x="86.5" y="13.85" width="16.5" height="40.3"/><rect x="2" y="24.85" width="5.5" height="18.3"/><rect x="97.5" y="24.85" width="5.5" height="18.3"/><path d="M18.5 26.7a9.15 9.15 0 0 1 0 14.6M86.5 26.7a9.15 9.15 0 0 0 0 14.6"/><circle cx="13" cy="34" r=".5" fill="#fff"/><circle cx="92" cy="34" r=".5" fill="#fff"/></svg></div>
+  <div class="pane p3"><svg viewBox="0 0 105 68" preserveAspectRatio="none" fill="none" stroke="#fff" stroke-width=".45"><rect x="2" y="2" width="101" height="64"/><line x1="52.5" y1="2" x2="52.5" y2="66"/><circle cx="52.5" cy="34" r="9.15"/><circle cx="52.5" cy="34" r=".6" fill="#fff"/><rect x="2" y="13.85" width="16.5" height="40.3"/><rect x="86.5" y="13.85" width="16.5" height="40.3"/><rect x="2" y="24.85" width="5.5" height="18.3"/><rect x="97.5" y="24.85" width="5.5" height="18.3"/><path d="M18.5 26.7a9.15 9.15 0 0 1 0 14.6M86.5 26.7a9.15 9.15 0 0 0 0 14.6"/><circle cx="13" cy="34" r=".5" fill="#fff"/><circle cx="92" cy="34" r=".5" fill="#fff"/></svg></div>
+  <div class="pane p4"><svg viewBox="0 0 105 68" preserveAspectRatio="none" fill="none" stroke="#fff" stroke-width=".45"><rect x="2" y="2" width="101" height="64"/><line x1="52.5" y1="2" x2="52.5" y2="66"/><circle cx="52.5" cy="34" r="9.15"/><circle cx="52.5" cy="34" r=".6" fill="#fff"/><rect x="2" y="13.85" width="16.5" height="40.3"/><rect x="86.5" y="13.85" width="16.5" height="40.3"/><rect x="2" y="24.85" width="5.5" height="18.3"/><rect x="97.5" y="24.85" width="5.5" height="18.3"/><path d="M18.5 26.7a9.15 9.15 0 0 1 0 14.6M86.5 26.7a9.15 9.15 0 0 0 0 14.6"/><circle cx="13" cy="34" r=".5" fill="#fff"/><circle cx="92" cy="34" r=".5" fill="#fff"/></svg></div>
+  <div class="haze"></div>
+</div>
+<div class="splash" id="splash" role="dialog" aria-modal="true" aria-labelledby="sp-label">
+  <div class="sp-crest" id="sp-crest"></div>
+  <div class="sp-line"></div>
+  <div class="sp-card">
+    <span class="sp-label" id="sp-label">From the legends</span>
+    <blockquote class="sp-quote" id="sp-quote"></blockquote>
+    <span class="sp-who" id="sp-who"></span>
+    <p class="sp-tag">Always a work in progress.</p>
+    <div class="sp-actions"><button class="btn solid" id="sp-go">Let’s go</button><button class="sp-more" id="sp-more">More from the legends</button></div>
+  </div>
+</div>
+<section class="view" id="v-home">
+  <header class="hero">
+    <svg class="crest" viewBox="0 0 140 140" aria-hidden="true">
+    <defs>
+      <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#F6E3A1"/><stop offset=".3" stop-color="#D4AF37"/><stop offset=".55" stop-color="#9C7616"/><stop offset=".8" stop-color="#E8C766"/><stop offset="1" stop-color="#B8901F"/></linearGradient>
+      <radialGradient id="field" cx=".5" cy=".35" r=".75"><stop offset="0" stop-color="#3A5FD0"/><stop offset=".55" stop-color="#1C3FA8"/><stop offset="1" stop-color="#0B1C5C"/></radialGradient>
+      <pattern id="pin" width="6" height="6" patternUnits="userSpaceOnUse"><rect width="1" height="6" fill="#fff" opacity=".05"/></pattern>
+    </defs>
+    <polygon points="132.82,96.02 96.02,132.82 43.98,132.82 7.18,96.02 7.18,43.98 43.98,7.18 96.02,7.18 132.82,43.98" fill="url(#gold)"/>
+    <polygon points="130.51,95.07 95.07,130.51 44.93,130.51 9.49,95.07 9.49,44.93 44.93,9.49 95.07,9.49 130.51,44.93" fill="none" stroke="#7A5A0E" stroke-width=".6" opacity=".6"/>
+    <polygon points="121.74,91.43 91.43,121.74 48.57,121.74 18.26,91.43 18.26,48.57 48.57,18.26 91.43,18.26 121.74,48.57" fill="url(#field)"/>
+    <polygon points="121.74,91.43 91.43,121.74 48.57,121.74 18.26,91.43 18.26,48.57 48.57,18.26 91.43,18.26 121.74,48.57" fill="url(#pin)"/>
+    <polygon points="117.12,89.52 89.52,117.12 50.48,117.12 22.88,89.52 22.88,50.48 50.48,22.88 89.52,22.88 117.12,50.48" fill="none" stroke="url(#gold)" stroke-width=".9"/>
+    <polygon points="121.74,91.43 91.43,121.74 48.57,121.74 18.26,91.43 18.26,48.57 48.57,18.26 91.43,18.26 121.74,48.57" fill="none" stroke="#6E520C" stroke-width="1"/>
+    <path d="M70 7.5 L71.3 11.2 L75.2 11.3 L72.1 13.6 L73.2 17.3 L70 15.1 L66.8 17.3 L67.9 13.6 L64.8 11.3 L68.7 11.2 Z" fill="#1C3FA8"/>
+    <g font-family="Bodoni Moda, Didot, Georgia, serif" font-weight="700" text-anchor="middle">
+      <text x="36" y="76" font-size="20" fill="#E9CF7A">M</text>
+      <text x="70" y="92" font-size="66" fill="#fff" stroke="url(#gold)" stroke-width="1.3" paint-order="stroke">P</text>
+      <text x="104" y="76" font-size="20" fill="#E9CF7A">T</text>
+    </g>
+    <line x1="52" y1="102" x2="88" y2="102" stroke="url(#gold)" stroke-width=".8"/>
+    <text x="70" y="130.2" text-anchor="middle" fill="#1C3FA8" font-family="Barlow, Arial, sans-serif" font-size="7.6" font-weight="700" letter-spacing="2.2">THORP</text>
+  </svg>
+    <h1>Pierson</h1>
+    <p>Training hub</p>
+    <div class="stripes"><span></span><span></span><span></span></div>
+  </header>
+  <main>
+    <div class="countdown"><div class="big">Play free.</div><div class="small">The game is supposed to be fun. Enjoy every touch.</div></div>
+    <div class="tonight"><h2>Tonight. Four things. That’s it.</h2>
+<button class="step" data-go="focus"><span class="n">1</span><span><b>Picture your goal</b><small>Eyes closed, two minutes. See it hit the net.</small></span></button>
+<button class="step" data-go="checklist"><span class="n">2</span><span><b>Pack your bag</b><small>Cleats, shin guards, water. Done.</small></span></button>
+<button class="step" data-go="checklist"><span class="n">3</span><span><b>Play FIFA</b><small>Seriously. Get your mind off it.</small></span></button>
+<button class="step" data-go="checklist"><span class="n">4</span><span><b>Bed early</b><small>Sleep makes you faster tomorrow.</small></span></button>
+</div>
+<h2 class="section-h">Everything else</h2><div class="grid">
+      <button class="tile feature" data-go="tryout">
+        <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="8" width="30" height="27" rx="3"/><path d="M5 15h30M13 4v8M27 4v8"/><path d="M14 25l4 4 8-9"/></svg>
+        <div><b>Tryout day</b><small>Sunday, Nov 8. U14 and older boys, 2:00 PM</small></div>
+      </button>
+      <button class="tile" data-go="rules"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="20" cy="20" r="14"/><circle cx="15" cy="17" r="1.2" fill="currentColor"/><circle cx="25" cy="17" r="1.2" fill="currentColor"/><path d="M14 24c3 3 9 3 12 0"/></svg><div><b>Game face</b><small>8 rules coaches notice</small></div></button><button class="tile" data-go="legends"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 7h16v7c0 5-4 9-8 9s-8-4-8-9z"/><path d="M12 10H7c0 4 2 7 5 7M28 10h5c0 4-2 7-5 7M20 23v6M14 34h12M16 29h8"/></svg><div><b>A word from the legends</b><small>Mbappé, Messi, Saka and more</small></div></button><button class="tile" data-go="warmup"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 34c-6 0-10-4-10-10 0-7 6-10 6-17 4 3 5 7 5 9 2-1 3-3 3-5 4 3 6 8 6 13 0 6-4 10-10 10z"/></svg><div><b>Sideline warm up</b><small>10 minutes before 2:00</small></div></button><button class="tile" data-go="session"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="20" cy="20" r="15"/><path d="M20 11l7 5-3 8h-8l-3-8z"/></svg><div><b>Tonight’s session</b><small>20 minutes, light touches</small></div></button><button class="tile" data-go="solo"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="14" cy="9" r="3.5"/><path d="M14 13v10l-5 10M14 23l6 4v7M14 16l7 3"/><circle cx="29" cy="31" r="4"/></svg><div><b>Attacker drills</b><small>Solo work for forwards</small></div></button><button class="tile" data-go="fixes"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="20" cy="20" r="14"/><path d="M8 26h24"/><circle cx="20" cy="17" r="4"/><path d="M20 21v5"/></svg><div><b>Fix it fast</b><small>Stop skying shots and more</small></div></button><button class="tile" data-go="mental"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6c-7 0-12 5-12 11 0 4 2 6 4 8v8h10v-4h4c2 0 3-1 3-3v-4l3-1-3-5c0-6-3-10-9-10z"/><path d="M17 15c2-2 6-1 6 2s-3 3-3 5"/></svg><div><b>Mental game</b><small>Reset fast, play free</small></div></button><button class="tile" data-go="focus"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="20" cy="20" r="14"/><circle cx="20" cy="20" r="8"/><circle cx="20" cy="20" r="2" fill="currentColor"/></svg><div><b>Focus</b><small>Your highlight reel and more</small></div></button><button class="tile" data-go="approach"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 32l8-10 6 5 10-15"/><path d="M26 12h6v6"/></svg><div><b>Tryout approach</b><small>What coaches watch</small></div></button><button class="tile" data-go="workouts"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 16v8M10 12v16M30 12v16M34 16v8M10 20h20"/></svg><div><b>Workouts</b><small>Lifting, speed, injury proofing</small></div></button><button class="tile" data-go="fuel"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12c-3-5-11-4-11 4 0 9 6 17 11 17s11-8 11-17c0-8-8-9-11-4z"/><path d="M20 12c0-3 2-6 5-7"/></svg><div><b>Fuel</b><small>What to eat and when</small></div></button><button class="tile" data-go="growth"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 34V6M12 6l-3 3M12 6l3 3"/><path d="M20 34h12M20 28h8M20 22h12M20 16h8M20 10h12"/></svg><div><b>Growth tracker</b><small>Height and weight</small></div></button><button class="tile" data-go="checklist"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="5" width="24" height="31" rx="3"/><path d="M14 14l2 2 4-4M14 23l2 2 4-4M23 14h4M23 23h4"/></svg><div><b>Tonight’s checklist</b><small>Pack, relax, have fun</small></div></button>
+    </div>
+  </main>
+</section>
+<section class="view" id="v-tryout">
+  <div class="bar-top"><button class="back" data-go="">‹ Hub</button><h1>Tryout day</h1><p>Midwest United FC, U14 and older boys</p></div>
+  <main>
+    <div class="info">
+      <div class="row"><div class="k">Date</div><div class="v">Sunday, November 8</div></div>
+      <div class="row"><div class="k">Check in</div><div class="v">1:30 PM</div></div>
+      <div class="row"><div class="k">Tryout</div><div class="v">2:00 to 3:30 PM</div></div>
+      <div class="row"><div class="k">Field</div><div class="v">Midwest United FC Soccer Complex, Outdoor Field 1</div></div>
+      <div class="row"><div class="k">Address</div><div class="v">3450 36th Street SE, Kentwood, MI 49512</div></div>
+      <div class="row"><div class="k">Register and pay</div><div class="v">Southeast corner near Field 1</div></div>
+    </div>
+    <div class="cta">
+      <button class="btn ghost" data-go="warmup">Sideline warm up</button><a class="btn solid" href="https://maps.apple.com/?q=3450+36th+Street+SE,+Kentwood,+MI+49512" target="_blank" rel="noopener">Open in Maps</a>
+      <a class="btn ghost" href="https://www.google.com/maps/search/?api=1&query=3450+36th+Street+SE+Kentwood+MI+49512" target="_blank" rel="noopener">Google Maps</a>
+    </div>
+    <div class="note">
+      <h3>Game plan</h3>
+      <p>Arrive by 1:15 so registration and payment are done before check in. Eat a real meal around 11, sip water all morning, and run your sideline warm up right after check in. Play simple, talk loud, scan before every touch.</p>
+    </div>
+  </main>
+</section>
+<section class="view" id="v-warmup"><div class="bar-top"><button class="back" data-go="">‹ Hub</button><h1>Sideline warm up</h1><p>Ten minutes on your own before 2:00.</p></div><main>
+<p class="lede">Start right after check in. You’ll walk onto the field warm, loose, and sharp while others are still stiff.</p>
+<div class="progress"><div class="track"><div class="fill" id="fill-warmup"></div></div><span class="count" id="count-warmup"></span></div>
+<div id="drills-warmup"></div><div class="final" id="final-warmup">Warm, loose, ready. Go play.</div>
+<div class="note"><h3>Remember</h3><p>Warm, not tired. If the group warm up starts, join it and keep moving.</p></div></main></section>
+<section class="view" id="v-session"><div class="bar-top"><button class="back" data-go="">‹ Hub</button><h1>Tonight’s session</h1><p>20 minutes. Easy touches. End on success.</p></div><main>
+<div class="progress"><div class="track"><div class="fill" id="fill-session"></div></div><span class="count" id="count-session"></span></div>
+<div id="drills-session"></div><div class="final" id="final-session">Session complete. Eat well, sleep early.</div>
+<div class="note"><h3>Remember</h3><p>Quality over quantity. End on a good one and leave wanting more.</p></div></main></section>
+<section class="view" id="v-solo"><div class="bar-top"><button class="back" data-go="">‹ Hub</button><h1>Attacker drills</h1><p>Built for attackers. For the season ahead, not tonight.</p></div><main>
+<div class="progress"><div class="track"><div class="fill" id="fill-solo"></div></div><span class="count" id="count-solo"></span></div>
+<div id="drills-solo"></div><div class="final" id="final-solo">Work banked. That’s how players get better.</div>
+<div class="note"><h3>Remember</h3><p>Quality over quantity. End on a good one and leave wanting more.</p></div></main></section>
+<section class="view" id="v-fixes"><div class="bar-top"><button class="back" data-go="">‹ Hub</button><h1>Fix it fast</h1><p>The common mistakes, and how the pros fix them.</p></div><main>
+<p class="lede">Every player has a habit holding them back. Find yours, fix it, and drill it until it’s gone.</p><details class="fix"><summary>Skying shots over the bar</summary><div class="fix-body">
+<span class="label">Why it happens</span><p>Leaning back, planting the standing foot behind the ball, or striking underneath it. All three send it into orbit.</p>
+<span class="label">The fix</span><p>Plant your standing foot right beside the ball, toes pointing at the target. Get your knee and chest over the ball. Point your toe down, lock your ankle, and strike the middle of the ball with your laces. Land on your shooting foot and follow through low toward the goal.</p>
+<span class="label">Drill it</span><p>Ten shots from 12 yards. Only count it if it goes in below knee height. Hard and flat becomes the habit.</p>
+<span class="cue">Cue: “Knee over, land on it.”</span></div></details><details class="fix"><summary>Shots with no power</summary><div class="fix-body">
+<span class="label">Why it happens</span><p>Hitting with the toe or the inside of the foot, or swinging only from the knee.</p>
+<span class="label">The fix</span><p>Approach at a slight angle, make your last stride a little longer, and swing from the hip. Laces through the middle of the ball, body moving forward through the strike.</p>
+<span class="label">Drill it</span><p>Five shots focusing only on the long last step. Power comes from the approach, not from swinging harder.</p>
+<span class="cue">Cue: “Long last step.”</span></div></details><details class="fix"><summary>First touch bouncing away</summary><div class="fix-body">
+<span class="label">Why it happens</span><p>The foot is stiff when the ball arrives, so it bounces off like a wall.</p>
+<span class="label">The fix</span><p>Relax your ankle and pull your foot back slightly as the ball hits it, like catching an egg. Push the touch into space away from pressure, not dead under you.</p>
+<span class="label">Drill it</span><p>Wall passes for three minutes. Every touch has to stop within one step and set you up for the next pass.</p>
+<span class="cue">Cue: “Soft and away.”</span></div></details><details class="fix"><summary>Passes that roll short or wide</summary><div class="fix-body">
+<span class="label">Why it happens</span><p>Open, floppy ankle, or looking at the target instead of the ball at the moment of contact.</p>
+<span class="label">The fix</span><p>Standing foot points at the target. Lock the ankle, toe up, and strike the middle of the ball with the inside of your foot. Follow through straight at your target.</p>
+<span class="label">Drill it</span><p>Two cones as a gate five yards away. Ten passes through it with each foot.</p>
+<span class="cue">Cue: “Point, lock, follow.”</span></div></details><details class="fix"><summary>Losing it while dribbling</summary><div class="fix-body">
+<span class="label">Why it happens</span><p>Big touches in traffic and head down, so defenders read you early.</p>
+<span class="label">The fix</span><p>Small touches, nearly every step, when defenders are close. Save bigger touches for open space. Get your eyes up between touches.</p>
+<span class="label">Drill it</span><p>Cone weave with a call out: someone holds up fingers, you shout the number while dribbling.</p>
+<span class="cue">Cue: “Small in traffic, big in space.”</span></div></details><details class="fix"><summary>Caught watching the ball</summary><div class="fix-body">
+<span class="label">Why it happens</span><p>Locked on the ball and not knowing where the pressure is when it arrives.</p>
+<span class="label">The fix</span><p>Check over both shoulders before the ball comes to you. Know your next move before your first touch.</p>
+<span class="label">Drill it</span><p>Wall passing with a rule: one shoulder check before every single receive.</p>
+<span class="cue">Cue: “Look, then receive.”</span></div></details><details class="fix"><summary>Crosses and long balls ballooning</summary><div class="fix-body">
+<span class="label">Why it happens</span><p>Leaning back and hitting under the ball when you meant to drive it.</p>
+<span class="label">The fix</span><p>To drive it flat, stay over the ball and strike through the middle, the same as shooting. Only lean back and get under the ball when you actually want height.</p>
+<span class="label">Drill it</span><p>Ten long passes to a partner or target. Keep them below head height.</p>
+<span class="cue">Cue: “Over it to drive it.”</span></div></details></main></section>
+<section class="view" id="v-rules"><div class="bar-top"><button class="back" data-go="">‹ Hub</button><h1>Game face</h1><p>The rules coaches notice from across the field.</p></div><main>
+<p class="lede">Coaches can see your body language before they ever see your skills. Make it say “pick me.”</p>
+<div class="rules"><div class="rule"><span class="rn">1</span><div><h2>No negative face.</h2><p>Coaches watch your face after a mistake more than the mistake itself. Shake it off and get back in it.</p></div></div><div class="rule"><span class="rn">2</span><div><h2>Chest up. Always.</h2><p>Head down tells a coach you’re done. Chest up tells him you want the next ball.</p></div></div><div class="rule"><span class="rn">3</span><div><h2>Jog everywhere.</h2><p>Never walk between drills or to a line. Hustle is the easiest thing to stand out with.</p></div></div><div class="rule"><span class="rn">4</span><div><h2>Hands off your hips.</h2><p>Hands on hips says you’re tired. Hands on knees says it louder. Stand tall.</p></div></div><div class="rule"><span class="rn">5</span><div><h2>Pick people up.</h2><p>Teammate messes up? “Next one.” “You’re good.” Coaches are building a team, not picking solo players.</p></div></div><div class="rule"><span class="rn">6</span><div><h2>Clap for good plays.</h2><p>Even when the other guy makes it. Coaches notice who respects the game.</p></div></div><div class="rule"><span class="rn">7</span><div><h2>Talk loud.</h2><p>“Man on.” “Turn.” “Good ball.” Quiet players disappear on the field.</p></div></div><div class="rule"><span class="rn">8</span><div><h2>No eye rolls. No excuses.</h2><p>Not at the ref, the coach, or a teammate. Ever.</p></div></div></div>
+<div class="note"><h3>Remember</h3><p>You control all eight. No talent required.</p></div></main></section>
+<section class="view" id="v-legends"><div class="bar-top"><button class="back" data-go="">‹ Hub</button><h1>A word from the legends</h1><p>How the best handled the hard parts.</p></div><main><p class="lede">Every legend has missed, been cut, or been told no. What made them legends was the next touch.</p><div class="card legend"><span class="who">Kylian Mbappé, age 11</span><p>At 11, Mbappé played a youth tournament semifinal in a real stadium. He was so scared he barely touched the ball. After the game his mom marched onto the field and told him he could miss 60 chances and nobody would care, but playing scared was the thing he’d regret. He says he’s never been afraid on a pitch since.</p><span class="cue">Miss all you want. Just never play scared.</span></div><div class="card legend"><span class="who">Lionel Messi</span><blockquote>“It took me 17 years and 114 days to become an overnight success.”</blockquote><p>He was tiny as a kid, and a big club back home in Argentina passed on him. At 13 he moved across the world to join Barcelona’s academy. He kept showing up early and staying late.</p><span class="cue">Nobody sees the reps. Do them anyway.</span></div><div class="card legend"><span class="who">Bukayo Saka</span><p>At 19, he missed the deciding penalty in the Euro 2020 final at Wembley, in front of the whole country. Three years later, he stepped up again in a Euro 2024 shootout and buried it.</p><span class="cue">Your worst moment is never your last moment.</span></div><div class="card legend"><span class="who">Harry Kane</span><p>Arsenal released him from their academy at 8. Later he was loaned out to four smaller clubs before he finally broke through at Tottenham. Today he’s England’s all time top scorer.</p><span class="cue">Getting cut isn’t the end. It’s fuel.</span></div><div class="card legend"><span class="who">Jamie Vardy</span><p>Released at 16 for being too small. He worked in a factory while playing non league on weekends. At 29 he won the Premier League with Leicester and scored in 11 straight games, a league record.</p><span class="cue">It’s never too late to prove them wrong.</span></div><div class="card legend"><span class="who">Luka Modrić</span><p>He grew up during a war in Croatia, kicking a ball around a hotel parking lot. A big club told him he was too small and weak. He went on to win the Ballon d’Or and multiple Champions Leagues with Real Madrid.</p><span class="cue">Size doesn’t decide it. Work does.</span></div><div class="card legend"><span class="who">Cristiano Ronaldo</span><p>At 12 he left his family on the island of Madeira to join Sporting’s academy in Lisbon. He was homesick and got teased for his accent. He answered with extra training, every single day.</p><span class="cue">Discipline beats doubt.</span></div><div class="card legend"><span class="who">Michael Jordan</span><p>As a sophomore, the greatest basketball player ever didn’t make his high school varsity team. He used it as fuel and came back better.</p><span class="cue">One tryout doesn’t decide who you become.</span></div><div class="card legend"><span class="who">Michael Jordan</span><blockquote>“And that is why I succeed.”</blockquote><p>Jordan said he’d missed more than 9,000 shots, lost almost 300 games, and missed 26 game winners when his team trusted him to take the shot.</p><span class="cue">Every miss is a rep.</span></div><div class="card legend"><span class="who">Michael Jordan</span><blockquote>“I can accept failure, everyone fails at something. But I can’t accept not trying.”</blockquote><p>From his book on chasing excellence.</p><span class="cue">Try everything. Hold nothing back.</span></div><div class="card legend"><span class="who">Steph Curry</span><blockquote>“Success is not an accident.”</blockquote><p>Too small, too skinny. The big college programs passed on him, so he went to Davidson and outworked everyone. Now he’s the greatest shooter of all time. In his book he writes that the work you put in before the moment is what carries you through it.</p><span class="cue">The work is already in your legs. Trust it.</span></div><div class="note"><h3>Remember</h3><p>Mistakes are normal. Getting right back into it is the skill.</p></div></main></section>
+<section class="view" id="v-workouts"><div class="bar-top"><button class="back" data-go="">‹ Hub</button><h1>Workouts</h1><p>Strength, speed, and staying healthy.</p></div><main><p class="lede">Strong players win more battles, sprint faster, and stay healthy all season.</p><div class="card"><h2>The rules of lifting at 14</h2><p>Form first, weight second. Only add weight when every rep of every set looks clean.</p><p>Lift with a coach, trainer, or parent watching. Never max out.</p><p>Two strength days a week is plenty. Never the day before a game.</p><p>Growing fast? Sore knees or heels are common at your age. Tell your parents or coach instead of pushing through.</p><span class="cue">Cue: “Clean reps only.”</span></div><div class="card"><h2>Strength A</h2><p>Legs and power. About 30 minutes.</p><div class="exs"><div class="ex"><div><b>Goblet squat</b><small>Hold a dumbbell at your chest. Chest up, knees out, sit deep.</small></div><span class="sets">3 × 8</span></div><div class="ex"><div><b>Romanian deadlift</b><small>Light dumbbells. Push hips back, flat back, feel the hamstrings.</small></div><span class="sets">3 × 8</span></div><div class="ex"><div><b>Split squat</b><small>Back foot on the ground or a bench. Front knee tracks over toes.</small></div><span class="sets">3 × 8 each</span></div><div class="ex"><div><b>Glute bridge</b><small>Squeeze at the top for a second. Powers your sprint.</small></div><span class="sets">3 × 12</span></div><div class="ex"><div><b>Plank</b><small>Straight line, tight stomach, breathe.</small></div><span class="sets">3 × 30 sec</span></div></div></div><div class="card"><h2>Strength B</h2><p>Upper body and injury proofing. About 30 minutes.</p><div class="exs"><div class="ex"><div><b>Push ups</b><small>Full range. Chest to the floor, body straight.</small></div><span class="sets">3 × 10</span></div><div class="ex"><div><b>Dumbbell row</b><small>Pull your elbow to your hip. Win shoulder battles.</small></div><span class="sets">3 × 10 each</span></div><div class="ex"><div><b>Nordic hamstring curl</b><small>Partner holds your ankles. Lower slowly. The top hamstring protector in soccer.</small></div><span class="sets">3 × 5</span></div><div class="ex"><div><b>Copenhagen plank</b><small>Knee on a bench, short version. Protects your groin.</small></div><span class="sets">3 × 15 sec each</span></div><div class="ex"><div><b>Side plank</b><small>Hips high. Core that holds off defenders.</small></div><span class="sets">3 × 30 sec each</span></div><div class="ex"><div><b>Calf raises</b><small>Slow down, fast up. Faster first steps.</small></div><span class="sets">3 × 15</span></div></div></div><div class="card"><h2>Speed and agility</h2><p>Fresh legs only. Full rest between reps.</p><div class="exs"><div class="ex"><div><b>A skips</b><small>Knee up, toe up, quick ground contact.</small></div><span class="sets">2 × 20 yd</span></div><div class="ex"><div><b>Acceleration sprints</b><small>Lean forward, drive your arms, explode.</small></div><span class="sets">6 × 15 yd</span></div><div class="ex"><div><b>5 10 5 shuttle</b><small>Touch the line, plant hard, cut low.</small></div><span class="sets">4 reps</span></div><div class="ex"><div><b>Lateral bounds</b><small>Stick each landing for a second.</small></div><span class="sets">3 × 6 each</span></div><div class="ex"><div><b>Curved runs</b><small>Bend your run like you’re beating a defender in behind.</small></div><span class="sets">4 × 25 yd</span></div></div></div><div class="card"><h2>A good week</h2><p>In season: two strength days, one speed day, your team trainings, and at least one full rest day.</p><p>Stretch and roll out after hard days. Sleep is when you actually get stronger.</p></div></main></section>
+<section class="view" id="v-fuel"><div class="bar-top"><button class="back" data-go="">‹ Hub</button><h1>Fuel</h1><p>What to eat, and when.</p></div><main><p class="lede">You’re growing and training. Your body needs a lot of good fuel. Never skip meals.</p><div class="card"><h2>Build your plate</h2><p>Protein to build muscle: chicken, eggs, fish, beef, Greek yogurt, beans.</p><p>Carbs for energy: rice, pasta, potatoes, bread, oatmeal, fruit.</p><p>Color for recovery: fruits and veggies at every meal.</p><p>Water with everything.</p><span class="cue">Cue: “Protein, carbs, color.”</span></div><div class="card"><h2>Game day timeline</h2><div class="exs"><div class="ex"><div><b>Real meal</b><small>Pasta, rice bowl, chicken sandwich. Familiar food only, nothing new on game day.</small></div><span class="sets">3 to 4 hrs before</span></div><div class="ex"><div><b>Top up snack</b><small>Banana, granola bar, toast with peanut butter, or a handful of pretzels.</small></div><span class="sets">1 hr before</span></div><div class="ex"><div><b>Sips of water</b><small>Small sips during breaks. Don’t chug.</small></div><span class="sets">During</span></div><div class="ex"><div><b>Recovery</b><small>Chocolate milk or a smoothie, then a full meal.</small></div><span class="sets">Within 1 hr after</span></div></div></div><div class="card"><h2>Hydration check</h2><p>Drink water all day, not just at practice. Pale yellow means you’re good. Dark yellow means drink more.</p></div><div class="card"><h2>Skip these</h2><p>Energy drinks. Too much caffeine for your age, and they make you crash.</p><p>Skipping breakfast. You can’t train hard on empty.</p><p>Any diet that cuts food. Growing athletes need more fuel, not less.</p></div><div class="card"><h2>Go to snacks</h2><p>Greek yogurt, string cheese, trail mix, fruit, PB and J, turkey wraps, chocolate milk, hard boiled eggs.</p></div></main></section>
+<section class="view" id="v-growth"><div class="bar-top"><button class="back" data-go="">‹ Hub</button><h1>Growth tracker</h1><p>Height and weight over time.</p></div><main><p class="lede">Track every month or two, same time of day. Everyone grows at their own speed. This is just to watch it happen.</p>
+<div class="card"><h2>New check in</h2>
+  <div class="form">
+    <label class="fld"><span>Date</span><input type="date" id="g-date"></label>
+    <div class="fld"><span>Height</span><div class="pair"><label><input type="number" id="g-ft" min="3" max="7" inputmode="numeric" placeholder="5"><em>ft</em></label><label><input type="number" id="g-in" min="0" max="11.75" step="0.25" inputmode="decimal" placeholder="6"><em>in</em></label></div></div>
+    <div class="fld"><span>Weight</span><div class="pair"><label><input type="number" id="g-lb" min="40" max="350" step="0.1" inputmode="decimal" placeholder="120"><em>lb</em></label></div></div>
+  </div>
+  <p class="g-msg" id="g-msg" role="status"></p>
+  <button class="btn solid" id="g-save">Save check in</button>
+</div>
+<div class="card" id="g-chart-card" hidden><h2>Height over time</h2><div id="g-chart"></div></div>
+<div class="card"><h2>History</h2><div id="g-list"><p>No check ins yet.</p></div></div>
+<p class="g-note">Saved only on this phone and browser.</p></main></section>
+<section class="view" id="v-mental"><div class="bar-top"><button class="back" data-go="">‹ Hub</button><h1>Mental game</h1><p>Stay in the next action.</p></div><main><p class="lede">The best players aren’t the ones who never make mistakes. They’re the ones whose next action is always good.</p><div class="card"><h2>Your routine before kickoff</h2><p>Same every time: warm up, picture your first touch, say your focus word, first touch of the ball. A routine tells your body it has done this before.</p><span class="cue">Cue: “Routine, then play.”</span></div><div class="card"><h2>Control what is yours</h2><p>Effort, voice, body language, and how fast you react. Nothing else needs your attention.</p><span class="cue">Cue: “My effort, my voice.”</span></div><div class="card"><h2>Next action</h2><p>A mistake is finished the moment it happens. The only thing coaches remember is what you do in the next five seconds.</p><span class="cue">Cue: “Next action.”</span></div><div class="card"><h2>The three second reset</h2><p>One breath out, tap your shin guard, say your word, find the ball. Practice it tonight after a missed touch so it’s automatic tomorrow.</p></div><div class="card"><h2>Body language speaks first</h2><p>Chest up, eyes forward, jog to every line. Coaches read posture before they read skill. See Game face for the eight rules.</p></div><div class="card"><h2>Pressure is a privilege</h2><p>The feeling in your stomach means this matters. Breathe into it and use it as energy.</p></div></main></section>
+<section class="view" id="v-focus"><div class="bar-top"><button class="back" data-go="">‹ Hub</button><h1>Focus</h1><p>Calm body, clear eyes, loud voice.</p></div><main><p class="lede">The best players have already played the game in their heads before they step on the pitch.</p><div class="card film"><h2>Your highlight reel</h2><p>Every pro does this. Close your eyes and watch yourself play tomorrow before it happens. Tap through the clips tonight in bed and again in the car.</p>
+<div class="scene" id="scene">You’re walking onto Field 1. Hear the ball, feel your cleats grip the turf.</div>
+<div class="film-row"><span class="sub" id="scene-n">Clip 1 of 5</span><button class="btn solid" id="scene-btn">Next clip</button></div></div><div class="card"><h2>The Mbappé method</h2><p>Before big games, Mbappé studies the defenders he’ll face: how they move, their habits, where space will open. He wants to arrive already knowing the game.</p><p>Then he keeps it light. He laughs with teammates in the locker room and says “The match begins when the referee blows the whistle, not before.”</p><p>Your version: know the plan, then relax until 2:00. The pressure starts at the whistle.</p><span class="cue">Cue: “Prepared, then free.”</span></div><div class="card"><h2>Scan, then decide</h2><p>Look before the ball comes, so when it arrives the decision is already made. Elite forwards check their shoulder constantly. It’s why they always seem a step ahead.</p></div><div class="card"><h2>One word</h2><p>When the game speeds up, return to one word. “Simple.” “Compete.” “Next.” Choose yours tonight and use it all day tomorrow.</p></div><div class="card"><h2>Win the next five minutes</h2><p>Don’t think about the whole tryout. This drill, this rep, this ball. Then the next one.</p></div><div class="card"><h2>Reset button</h2><p>The same trick penalty takers use when the stadium is loud. Sixteen seconds per round. Use it if the nerves spike before check in.</p><div class="breathe"><div class="orb" id="orb"></div><div class="phase" id="phase">Ready</div><div class="sub" id="round">4 rounds of 4 seconds</div><button class="btn solid" id="breathe-btn">Run it</button></div></div></main></section>
+<section class="view" id="v-approach"><div class="bar-top"><button class="back" data-go="">‹ Hub</button><h1>Tryout approach</h1><p>Stand out the right way.</p></div><main><p class="lede">Coaches choose players who make the team better, are easy to coach, and never stop competing.</p><div class="card"><h2>What coaches watch</h2><p>Scanning before receiving. Direction of the first touch. Speed of decisions. Reaction when the ball is lost. Talk. How you respond to correction.</p></div><div class="card"><h2>As an attacker</h2><p>Coaches judge forwards on movement before the ball. Check toward the ball, then spin in behind. Make runs even when you don’t get the pass.</p><p>Take your first touch toward goal. Shoot when you see the frame. A shot on target beats a perfect pass that never comes.</p><p>Combine. A quick one two is worth more than beating three players alone.</p><p>Press from the front. When your team loses it, you are the first defender. That’s the five second win back.</p><span class="cue">Cue: “Move, face up, shoot.”</span></div><div class="card"><h2>Before the first whistle</h2><p>Shake the coach’s hand and look him in the eye. Be early to every line. Warm up like it already counts.</p></div><div class="card"><h2>In the drills</h2><p>Play simple and quick. Two touch and move. Talk every rep: “Man on,” “Time,” “Turn.” Quality over flash.</p></div><div class="card"><h2>Lose it, win it back</h2><p>When you lose the ball, react in the first five seconds. Press immediately. Coaches notice that more than any trick.</p></div><div class="card"><h2>Take coaching visibly</h2><p>When a coach corrects you, nod, say “got it,” and show it on the very next rep. That’s the player they want to coach all season.</p></div><div class="card"><h2>In the scrimmage</h2><p>Ask for the ball, move into space, make the safe pass when in doubt. Win your individual battles. A great recovery run can matter more than a goal.</p></div><div class="card"><h2>After it ends</h2><p>Thank the coaches by name and help pick up the cones. The last impression counts as much as the first.</p></div></main></section>
+<section class="view" id="v-checklist">
+  <div class="bar-top"><button class="back" data-go="">‹ Hub</button><h1>Tonight’s checklist</h1><p>Pack it, then forget about it and have fun.</p></div>
+  <main><ul class="list" id="list"></ul></main>
+</section>
+<script>
+
+(function(){
+  const quotes=[
+    ["I can accept failure, everyone fails at something. But I can’t accept not trying.","Michael Jordan"],
+    ["I’ve failed over and over and over again… And that is why I succeed.","Michael Jordan"],
+    ["Success is not an accident.","Steph Curry"],
+    ["It took me 17 years and 114 days to become an overnight success.","Lionel Messi"],
+    ["You can miss 60 chances. Nobody cares. But never refuse to play because you’re afraid.","Mbappé’s mom, to Kylian at age 11"]
+  ];
+  const sp=document.getElementById("splash");if(!sp)return;
+  const [q,w]=quotes[Math.floor(Math.random()*quotes.length)];
+  document.getElementById("sp-quote").textContent="“"+q+"”";
+  document.getElementById("sp-who").textContent=w;
+  const c=document.querySelector(".hero .crest");if(c)document.getElementById("sp-crest").appendChild(c.cloneNode(true));
+  const close=()=>{sp.classList.add("gone");setTimeout(()=>sp.remove(),600)};
+  document.getElementById("sp-go").onclick=close;
+  document.getElementById("sp-more").onclick=()=>{close();location.hash="legends"};
+  document.getElementById("sp-go").focus({preventScroll:true});
+})();
+
+(function(){
+  const K="growth-log";let log=[];
+  try{log=JSON.parse(localStorage.getItem(K)||"[]")}catch(e){log=[]}
+  const save=()=>{try{localStorage.setItem(K,JSON.stringify(log))}catch(e){}};
+  const $=id=>document.getElementById(id);
+  const today=()=>{const d=new Date();return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0")};
+  $("g-date").value=today();
+  const fmtH=t=>{const f=Math.floor(t/12),i=+(t-f*12).toFixed(2);return f+"′ "+i+"″"};
+  const fmtD=d=>new Date(d+"T12:00:00").toLocaleDateString(undefined,{month:"short",day:"numeric",year:"numeric"});
+  function render(){
+    const L=[...log].sort((a,b)=>a.date.localeCompare(b.date));
+    const list=$("g-list");
+    if(!L.length){list.innerHTML="<p>No check ins yet.</p>";$("g-chart-card").hidden=true;return}
+    list.innerHTML="";
+    [...L].reverse().forEach((e,idx,arr)=>{
+      const prev=arr[idx+1];let ch="";
+      if(prev&&e.h&&prev.h){const d=+(e.h-prev.h).toFixed(2);if(d>0)ch=" · up "+d+"″"}
+      const row=document.createElement("div");row.className="g-row";
+      row.innerHTML=`<div><b>${fmtD(e.date)}</b><small>${e.h?fmtH(e.h):"no height"}${ch}</small></div><span>${e.lb?e.lb+" lb":""}</span><button class="g-del" aria-label="Delete check in">✕</button>`;
+      row.querySelector(".g-del").onclick=()=>{log=log.filter(x=>x!==e);save();render()};
+      list.appendChild(row)});
+    const H=L.filter(e=>e.h);
+    if(H.length<2){$("g-chart-card").hidden=true;return}
+    $("g-chart-card").hidden=false;
+    const W=320,Ht=150,p=26,t0=new Date(H[0].date).getTime(),t1=new Date(H[H.length-1].date).getTime()||t0+1;
+    const lo=Math.min(...H.map(e=>e.h))-1,hi=Math.max(...H.map(e=>e.h))+1;
+    const x=d=>p+(new Date(d).getTime()-t0)/((t1-t0)||1)*(W-2*p),y=h=>Ht-p-(h-lo)/(hi-lo)*(Ht-2*p);
+    const pts=H.map(e=>x(e.date).toFixed(1)+","+y(e.h).toFixed(1)).join(" ");
+    $("g-chart").innerHTML=`<svg viewBox="0 0 ${W} ${Ht}" role="img" aria-label="Height over time"><line x1="${p}" y1="${Ht-p}" x2="${W-p}" y2="${Ht-p}" stroke="rgba(255,255,255,.2)"/><polyline points="${pts}" fill="none" stroke="#E6C76E" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>${H.map(e=>`<circle cx="${x(e.date)}" cy="${y(e.h)}" r="4" fill="#fff"/>`).join("")}<text x="${p}" y="${Ht-6}" fill="rgba(255,255,255,.6)" font-size="11" font-family="Barlow,Arial">${fmtD(H[0].date)}</text><text x="${W-p}" y="${Ht-6}" text-anchor="end" fill="rgba(255,255,255,.6)" font-size="11" font-family="Barlow,Arial">${fmtD(H[H.length-1].date)}</text><text x="${x(H[H.length-1].date)}" y="${y(H[H.length-1].h)-10}" text-anchor="end" fill="#fff" font-size="12" font-weight="600" font-family="Barlow,Arial">${fmtH(H[H.length-1].h)}</text></svg>`;
+  }
+  $("g-save").onclick=()=>{
+    const date=$("g-date").value||today(),ft=parseFloat($("g-ft").value),inch=parseFloat($("g-in").value)||0,lb=parseFloat($("g-lb").value);
+    const h=isNaN(ft)?null:ft*12+inch;
+    if(h===null&&isNaN(lb)){$("g-msg").textContent="Add a height, a weight, or both.";return}
+    log=log.filter(e=>e.date!==date);log.push({date,h,lb:isNaN(lb)?null:lb});save();render();
+    $("g-msg").textContent="Saved.";$("g-ft").value=$("g-in").value=$("g-lb").value="";
+    setTimeout(()=>{$("g-msg").textContent=""},2500)};
+  render();
+})();
+const views=["tryout","workouts","fuel","growth","legends","rules","warmup","session","solo","fixes","mental","focus","approach","checklist"];
+function route(){const h=location.hash.slice(1);const v=views.includes(h)?h:"home";
+  document.querySelectorAll(".view").forEach(e=>e.classList.toggle("on",e.id==="v-"+v));window.scrollTo(0,0)}
+document.addEventListener("click",e=>{const b=e.target.closest("[data-go]");if(!b)return;
+  const g=b.dataset.go;if(g)location.hash=g;else{history.replaceState(null,"",location.pathname+location.search);route()}});
+window.addEventListener("hashchange",route);route();
+
+
+function makeDrills(k,list){
+  const wrap=document.getElementById("drills-"+k);let done=0;
+  const update=()=>{document.getElementById("fill-"+k).style.width=(done/list.length*100)+"%";
+    document.getElementById("count-"+k).textContent=done+" of "+list.length+" done";
+    document.getElementById("final-"+k).classList.toggle("show",done===list.length)};
+  list.forEach(([name,min,desc],i)=>{
+    const c=document.createElement("section");c.className="drill";
+    c.innerHTML=`<div class="num">${i+1}</div><div><h2>${name}</h2><p>${min} minutes. ${desc}</p></div>
+    <div class="controls"><button class="go">Start</button><button class="check">Done</button><span class="time">${min}:00</span></div>`;
+    let left=min*60,t=null,finished=false;const disp=c.querySelector(".time"),go=c.querySelector(".go");
+    const show=()=>disp.textContent=Math.floor(left/60)+":"+String(left%60).padStart(2,"0");
+    const stop=()=>{clearInterval(t);t=null;c.classList.remove("running");go.textContent="Start"};
+    const finish=()=>{stop();if(!finished){finished=true;done++;c.classList.add("done");update()}};
+    go.onclick=()=>{if(finished)return;if(t){stop();return}go.textContent="Pause";c.classList.add("running");
+      t=setInterval(()=>{left--;show();if(left<=0){if(navigator.vibrate)navigator.vibrate([300,150,300]);finish()}},1000)};
+    c.querySelector(".check").onclick=finish;wrap.appendChild(c)});
+  update()}
+makeDrills("session",[["Activate", 3, "Light jog, high knees, side shuffles, a few leg swings. Get warm, not tired."], ["Wake up touches", 4, "Toe taps and sole rolls on the ball. Both feet. Quick, light, relaxed."], ["Scan and pass", 5, "Two touch with Dad from about 10 yards. Before every ball arrives, a quick look over the shoulder. Receive on the back foot, body open."], ["Dribble with your head up", 4, "Half speed through the cones. Every few touches, eyes up. Close control, both feet."], ["Finish clean", 4, "Five or six shots. Pick the corner first, then strike. Stop on a good one."]]);
+makeDrills("warmup",[["Jog and open the hips", 2, "Easy jog along the sideline. Every few steps, swing a knee out and around to open the hip, then in to close it."], ["Dynamic stretch", 2, "Walking lunges, high knees, heel flicks, leg swings front to back and side to side. Moving, never holding."], ["Quick feet", 2, "Side shuffles, backpedal, quick ladder steps on the spot. Light and sharp."], ["Ball touches", 2, "Toe taps, sole rolls, a few passes off a fence or teammate. Wake up the feet."], ["Build up sprints", 2, "Three 20 yard runs at 70, 80, then 90 percent. Walk back. You should feel fast, not tired."]]);
+makeDrills("solo",[["Ball mastery", 5, "Toe taps, sole rolls, inside outside touches. On the balls of your feet. Faster each minute, never sloppy."], ["Receive, turn, finish", 6, "Pass off the wall, shoulder check, first touch across your body toward goal, then shoot. The first touch sets up the shot."], ["One v one moves", 6, "Cone as a defender. Attack it at speed: step over, scissors, or body feint, then explode past with your next touch."], ["First time finishing", 5, "Roll or bounce the ball ahead and strike it without a settling touch. Strikers rarely get two touches in the box."], ["Weak foot finishing", 4, "Every shot with the weaker foot. Placement over power. Defenders show attackers onto the weak side on purpose."], ["Knee height finishing", 4, "Ten shots from 12 yards. Only count it if it goes in below knee height. Hard and flat."]]);
+
+
+const scenes=["You’re walking onto Field 1. Hear the ball, feel your cleats grip the turf.","First ball comes your way. Shoulder check, then a first touch into space. Easy.","You lose one. Five seconds later you’ve won it back. The coach saw it.","Late in the scrimmage. Ball at your feet. You pick the corner and finish low.","Open your eyes. You’ve already done it once. Tomorrow you just do it again."];
+let sc=0;document.getElementById("scene-btn").onclick=function(){
+  sc=(sc+1)%scenes.length;document.getElementById("scene").textContent=scenes[sc];
+  document.getElementById("scene-n").textContent="Clip "+(sc+1)+" of "+scenes.length;
+  this.textContent=sc===scenes.length-1?"Watch again":"Next clip"};
+const phases=[["Breathe in",1],["Hold",1],["Breathe out",.6],["Hold",.6]];
+let bTimer=null;
+document.getElementById("breathe-btn").onclick=function(){
+  const orb=document.getElementById("orb"),ph=document.getElementById("phase"),rd=document.getElementById("round"),btn=this;
+  if(bTimer){clearTimeout(bTimer);bTimer=null;orb.style.transform="scale(.6)";ph.textContent="Ready";rd.textContent="4 rounds of 4 seconds";btn.textContent="Start breathing";return}
+  btn.textContent="Stop";let step=0;
+  const run=()=>{if(step>=16){bTimer=null;ph.textContent="Settled. You’re ready.";rd.textContent="";btn.textContent="Go again";orb.style.transform="scale(.6)";return}
+    const [label,scale]=phases[step%4];ph.textContent=label;rd.textContent="Round "+(Math.floor(step/4)+1)+" of 4";
+    orb.style.transform="scale("+scale+")";step++;bTimer=setTimeout(run,4000)};
+  run()};
+
+const items=["Cleats","Shin guards","Two pairs of socks","Ball","Water bottle, filled","Snack for after","Warm layer for the sideline","Payment for registration","Phone charged with the address saved","Do something fun tonight: play FIFA, watch highlights, laugh","Good dinner and plenty of water","Lights out early"];
+let saved={};try{saved=JSON.parse(localStorage.getItem("bag")||"{}")}catch(e){}
+const listEl=document.getElementById("list");
+items.forEach((it,i)=>{const li=document.createElement("li");
+  li.innerHTML=`<label><input type="checkbox" ${saved[i]?"checked":""}><span>${it}</span></label>`;
+  li.querySelector("input").onchange=e=>{saved[i]=e.target.checked;try{localStorage.setItem("bag",JSON.stringify(saved))}catch(err){}};
+  listEl.appendChild(li)});
+</script>
+</body>
+</html>
